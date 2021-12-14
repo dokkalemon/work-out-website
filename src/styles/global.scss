@@ -26,11 +26,23 @@ body {
     margin: 0 auto;
 }
 
-.px-15 {
-    padding-left: 15px;
-    padding-right: 15px;
+.px-30 {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .debug {
     border: 1px solid red;
+}
+
+a {
+    text-decoration: none;
+    transition: $transition
+}
+
+
+@media screen and (max-width: 1260px) {
+    .container {
+        width: 100%;
+    }
 }
