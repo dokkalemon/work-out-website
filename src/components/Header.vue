@@ -5,7 +5,7 @@
               <img src="../assets/logo-workout.svg" alt="">
           </div>
 
-          <div class="header-nav ">
+          <div class="header-nav" :class="{active: headerActive}">
               
               <div class="header-back">
                   <img src="../assets/logo-design.svg" alt="">
@@ -17,6 +17,12 @@
                       <li  v-for="(item, index) in headerArray" :key="`header${index}`"><router-link :to="item.url" :class="{active: item.activeState}">{{item.label}}</router-link></li>
                   </ul>
               </nav>
+          </div>
+
+          <div class="burger" :class="{active: headerActive}" @click="setActiveHeader">
+              <div class="burger-line"></div>
+              <div class="burger-line"></div>
+              <div class="burger-line"></div>
           </div>
 
 
@@ -32,7 +38,24 @@ export default {
 
     props: {
         headerArray: Array,
+    },
+
+    data() {
+        return {
+            headerActive: false,
+        }
+    },
+
+    methods: {
+        setActiveHeader() {
+            if (this.headerActive === true) {
+                this.headerActive = false
+            } else if (this.headerActive === false) {
+                this.headerActive = true
+            }
+        }
     }
+
 }
 </script>
 
@@ -56,6 +79,7 @@ header {
         .header-nav {
             height: 100%;
             width: 100%;
+            transition: $transition;
             .header-back {
                 height: 100%;
                 width: 100%;
@@ -103,6 +127,42 @@ header {
                 }
             }
         }
+        .burger {
+            height: 80px; 
+            width: 40px;
+            flex-direction: column;
+            justify-content: center;
+            position: fixed;
+            left: 30px;
+            display: none;
+            z-index: 999;
+            cursor: pointer;
+            .burger-line {
+                height: 1px;
+                width: 100%;
+                background-color: $primary-title;
+                margin-bottom: 8px;
+                transition: $transition;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }   
+        .burger.active {
+            .burger-line:first-child {
+                position: relative;
+                top: 9px;
+                transform: rotate(225deg)
+            }
+            .burger-line:nth-child(2) {
+                opacity: 0;
+            }
+            .burger-line:last-child {
+                position: relative;
+                top: -9px;
+                transform: rotate(-225deg)
+            }
+        }
 
 
     }
@@ -126,7 +186,7 @@ header {
                 position: fixed;
                 height: 100%;
                 width: 100%;
-                left: 00%;
+                left: -100%;
                 z-index: 1;
                 .header-back {
                     padding-top: 80px;
@@ -156,6 +216,12 @@ header {
                     }
                 }
 
+        }
+        .header-nav.active {
+            left: 0
+        }
+        .burger {
+            display: flex;
         }
         }
     }
