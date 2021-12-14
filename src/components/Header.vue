@@ -80,7 +80,6 @@ header {
         .header-nav {
             height: 100%;
             width: 100%;
-            transition: $transition;
             background-color: $main-back;
             .header-back {
                 height: 100%;
@@ -93,7 +92,6 @@ header {
                     height: 100%;
                     width: 100%;                    
                     object-fit: cover;
-                    
                 }
             }
             .nav {
@@ -112,7 +110,7 @@ header {
                         border-bottom: 4px solid $main-back;
                         transition: $transition;
                         cursor: pointer;
-                        margin-right: 50px;
+                        margin-right: 70px;
                         a {
                             color: $primary-title;
                             text-transform: uppercase;
@@ -126,7 +124,6 @@ header {
                             border-bottom: 4px solid $primary-color;
                         }
                     }
-
                 }
             }
         }
@@ -145,7 +142,7 @@ header {
                 width: 100%;
                 background-color: $primary-title;
                 margin-bottom: 8px;
-                transition: $transition;
+                
                 &:last-child {
                     margin-bottom: 0;
                 }
@@ -167,8 +164,6 @@ header {
                 transform: rotate(-225deg)
             }
         }
-
-
     }
 }
 
@@ -178,10 +173,9 @@ header {
 
 
 /* Responsive */
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 780px) {
     header {
         .header {
-            
             .header-logo {
                 width: 100%;
             }   
@@ -193,10 +187,11 @@ header {
                 left: -100%;
                 z-index: 1;
                 height: calc(100vh - 80px);
+                transition: $transition;
+
                 .header-back {
                     padding-top: 80px;
                     display: block;
-                    
                 }
                 .nav {
                     position: relative;
@@ -220,13 +215,15 @@ header {
                         }
                     }
                 }
-
         }
         .header-nav.active {
             left: 0
         }
         .burger {
             display: flex;
+            .burger-line {
+                transition: $transition;
+            }
         }
         }
     }
