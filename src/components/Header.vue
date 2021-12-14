@@ -2,7 +2,7 @@
   <header class="full-width">
       <div class="header container px-30">
           <div class="header-logo">
-              <img src="../assets/logo-workout.svg" alt="">
+             <router-link to="/"> <img src="../assets/logo-workout.svg" alt=""></router-link>
           </div>
 
           <div class="header-nav" :class="{active: headerActive}">
@@ -73,8 +73,15 @@ header {
             display: flex;
             justify-content: center;
             align-items: center;
-            img {
-                height: 80%;
+            a {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                img {
+                    height: 80%;
+                }
             }
         }
         .header-nav {
@@ -173,7 +180,7 @@ header {
 
 
 /* Responsive */
-@media screen and (max-width: 780px) {
+@media screen and (max-width: 790px) {
     header {
         .header {
             .header-logo {
