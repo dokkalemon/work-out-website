@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header class="full-width">
       <div class="header container px-30">
           <div class="header-logo">
               <img src="../assets/logo-workout.svg" alt="">
@@ -64,6 +64,7 @@ export default {
 
 header {
     background-color: $main-back;
+    position: fixed;
     .header {
         height: 80px;
         display: flex;
@@ -80,6 +81,7 @@ header {
             height: 100%;
             width: 100%;
             transition: $transition;
+            background-color: $main-back;
             .header-back {
                 height: 100%;
                 width: 100%;
@@ -87,10 +89,11 @@ header {
                 top: 0;
                 display: none;
                 img {
-                    opacity: 0.029;
-                    height: 150%;
+                    opacity: 0.032;
+                    height: 100%;
                     width: 100%;                    
                     object-fit: cover;
+                    
                 }
             }
             .nav {
@@ -156,6 +159,7 @@ header {
             }
             .burger-line:nth-child(2) {
                 opacity: 0;
+                transform: rotate(75deg)
             }
             .burger-line:last-child {
                 position: relative;
@@ -182,12 +186,13 @@ header {
                 width: 100%;
             }   
             .header-nav {
-                padding-top: 80px;
+                margin-top: 80px;
                 position: fixed;
                 height: 100%;
                 width: 100%;
                 left: -100%;
                 z-index: 1;
+                height: calc(100vh - 80px);
                 .header-back {
                     padding-top: 80px;
                     display: block;
