@@ -1,13 +1,35 @@
 <template>
-    <section class="jumbo">
+    <section class="jumbo" >
         <div class="jumbo-scroll">
-            <div class="jumbo-item first-slide" style="background-color: yellow"  :class="{active: activeSlide > 0}"></div>
-            <div class="jumbo-item second-slide" style="background-color: purple" :class="{active: activeSlide > 1}"></div>
-            <div class="jumbo-item third-slide" style="background-color: green" :class="{active: activeSlide > 2}"></div>
-            <div class="jumbo-item fourth-slide" style="background-color: blue" :class="{active: activeSlide > 3}"></div>
-            
+            <!-- Slide -->
+            <div class="jumbo-item" v-for="(item, index) in sliderArray" :key="`slider${index}`" :class="{active: activeSlide > index}">
+                <!-- img -->
+                <div class="slide-cover">
+                    <img :src="require(`../assets/${item.thumb}`)" alt="">
+                </div>
+
+                <!-- Info -->
+                <div class="slide-decoration" :class="{active: activeSlide === (index + 1)}"></div>
+                <div class="slide-info-container container px-30">
+                    <div class="slide-info">
+                        <div class="slide-title" :class="{active: activeSlide === (index + 1)}">
+                            <h2>{{item.title}}</h2>
+                        </div>
+                        <div class="slide-text" :class="{active: activeSlide === (index + 1)}">
+                            <p>{{item.text}}</p>
+                        </div>
+
+                        <div class="slide-button" :class="{active: activeSlide === (index + 1)}">
+                            <button class="primary-button">SCOPRI DI PIÙ</button>
+                            <button class="secondary-button">CONTATTACI</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
+        <!-- Arrow -->
         <div class="jumbo-arrow-left" @click="leftSlide">
             <i class="fas fa-caret-square-left"></i>
         </div>
@@ -15,11 +37,10 @@
             <i class="fas fa-caret-square-right"></i>
         </div>
 
+        <!-- Nav -->
         <div class="jumbo-nav">
-            <div class="nav-line" :class="{active: activeSlide === 1}" @click="activeSlide = 1"></div>
-            <div class="nav-line" :class="{active: activeSlide === 2}" @click="activeSlide = 2"></div>
-            <div class="nav-line" :class="{active: activeSlide === 3}" @click="activeSlide = 3"></div>
-            <div class="nav-line" :class="{active: activeSlide === 4}" @click="activeSlide = 4"></div>
+            <div class="nav-line" :class="{active: activeSlide === (index + 1)}" @click="activeSlide = (index + 1)" v-for="(item, index) in sliderArray" :key="`nav${index}`"></div>
+            
         </div>
 
 
@@ -32,11 +53,14 @@
 export default {
     name: 'Jumbo',
 
+    props: {
+        sliderArray: Array
+    },
+
     data() {
         return {
             activeSlide: 1,
-
-            time: setInterval(this.increaseSlide, 10000)
+            time: setInterval(this.increaseSlide, 10000),
         }
     },
 
@@ -46,7 +70,7 @@ export default {
     methods: {
         
         slideCondition() {
-              if (this.activeSlide > 4) {
+              if (this.activeSlide > this.sliderArray.length) {
                 this.activeSlide = 1
             } else if (this.activeSlide < 1) {
                 this.activeSlide = 4
@@ -56,10 +80,6 @@ export default {
          increaseSlide() {
              this.activeSlide++;
            this.slideCondition()
-         },
-
-         clearSlide() {
-             clearInterval(this.time)
          },
 
          leftSlide() {
@@ -97,7 +117,98 @@ export default {
             position: absolute;
             z-index: 1;
             left: 100%;
-            transition: all 1s ease
+            overflow: hidden;
+            transition: all 1s ease;
+            .slide-cover {
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                z-index: 1;
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+            .slide-decoration {
+                height: 155%;
+                width: 80%;
+                background-color: rgba(0, 0, 0, 0.8);
+                border: 5px solid $primary-color;
+                position: absolute;
+                left: -2000px;
+                /* left: -500px; */
+                z-index: 1;
+                transform: rotate(70deg);
+                transition: all 1s 0.5s ease;
+            }
+            .slide-decoration.active {
+                left: -500px;
+            }
+
+            .slide-info-container {
+                height: 100%;
+                padding-top: 40px;
+                position: relative;
+                z-index: 5;
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                
+                .slide-info {
+                    width: 100%;
+                   .slide-title {
+                       width: 45%;
+                       h2 {
+                           font-size: 60px;
+                           color: $primary-title;
+                       }
+                       position: relative;
+                       left: -200px;
+                        transition: all 1s 1.1s ease;
+                        opacity: 0;
+                   }
+                   .slide-title.active {
+                       opacity: 1;
+                       left: 0;
+                   }
+                   .slide-text {
+                       width: 45%;
+                       margin-top: 15px;
+                       margin-bottom: 30px;
+                       p {
+                           font-size: 20px;
+                           line-height: 35px;
+                       }
+                       position: relative;
+                       left: -200px;
+                        transition: all 1s 1.3s ease;
+                        opacity: 0;
+                   }
+                   .slide-text.active {
+                       opacity: 1;
+                       left: 0;
+                   }
+                   .slide-button {
+                       button {
+                           margin-right: 20px;
+                           &:last-child {
+                               margin-right: 0
+                           }
+                       }
+                           position: relative;
+                            left: -200px;
+                            transition: all 1s 1.5s ease;
+                            opacity: 0;
+                   }
+                   .slide-button.active {
+                       opacity: 1;
+                       left: 0;
+                       
+                   }
+                }
+            }
+            
         }
 
         .active {
@@ -127,13 +238,8 @@ export default {
         }
     }
     .jumbo-arrow-right {
-        
         right: 0;
-        i {
-            
-        }
     }
-
     .jumbo-nav {
         height: 50px;
         width: 100%;
