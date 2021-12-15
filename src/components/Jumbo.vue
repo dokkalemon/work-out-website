@@ -133,7 +133,7 @@ export default {
             .slide-decoration {
                 height: 155%;
                 width: 80%;
-                background-color: rgba(0, 0, 0, 0.8);
+                background-color: rgba(0, 0, 0, 0.85);
                 border: 5px solid $primary-color;
                 position: absolute;
                 left: -2000px;
