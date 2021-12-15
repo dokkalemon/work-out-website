@@ -65,6 +65,7 @@ export default {
 header {
     background-color: $main-back;
     position: fixed;
+    z-index: 999;
     .header {
         height: 80px;
         display: flex;
